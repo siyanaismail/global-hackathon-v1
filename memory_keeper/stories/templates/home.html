@@ -57,16 +57,13 @@
         <h2 class="text-center mb-5">Life Memories</h2>
         <div class="row" id="memory-cards">
             <!-- Example Memory Card -->
-
-             {% for memory in memories %}
             <div class="col-md-4">
                 <div class="memory-card">
                     <h3>Grandparent Story</h3>
-                    <p>{{ memory.story_text|truncatewords:15 }}</p> <!-- Truncate to first 15 words -->
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. This story captures precious family momentss</p> <!-- Truncate to first 15 words -->
                     <a href="#" class="btn btn-custom mt-3">Read More</a>
                 </div>
             </div>
-            {% endfor %}
 
             <div class="col-md-4">
                 <div class="memory-card">
