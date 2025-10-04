@@ -399,3 +399,90 @@ footer .social-link:hover {
         font-size: 1.6rem;
     }
 }
+
+/* Custom CSS for the Conversation Interface */
+
+/* --- Color Variables (Use these if not defined in base.html) --- */
+/*
+:root {
+    --color-linen: #FAF6F0;    // Creamy Linen (Background)
+    --color-sage: #799980;     // Warm Sage (Bot Accent)
+    --color-peach: #F0B89C;    // Soft Peach (User Accent/Highlight)
+    --color-charcoal: #333333; // Deep Charcoal (Text)
+}
+*/
+
+/* --- Global Styling --- */
+body {
+    background-color: var(--color-linen);
+    font-family: 'Georgia', serif;
+}
+
+.btn-sage {
+    background-color: var(--color-sage);
+    border-color: var(--color-sage);
+    color: white;
+    transition: background-color 0.2s;
+}
+.btn-sage:hover {
+    background-color: #637f6a; /* Slightly darker sage */
+    border-color: #637f6a;
+    color: white;
+}
+
+/* --- Chat Container --- */
+.chat-container {
+    height: 60vh; /* Responsive height for the chat area */
+    max-height: 500px; 
+    overflow-y: auto; /* Allows scrolling when conversation grows */
+    padding: 15px;
+    border: 2px solid var(--color-sage);
+    border-radius: 8px;
+    background-color: #fcfbf8; /* Slightly lighter than linen for contrast */
+    scroll-behavior: smooth;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Individual Message Styling --- */
+.chat-message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    max-width: 85%;
+    line-height: 1.4;
+    word-wrap: break-word; /* Ensures long words don't break layout */
+    font-size: 0.95rem;
+}
+
+/* Styling for the Bot's (AI) Messages */
+.bot-message {
+    background-color: var(--color-sage);
+    color: white;
+    margin-right: auto; /* Aligns to the left */
+    border-top-left-radius: 4px; /* Flatter edge near the align side */
+}
+
+/* Styling for the User's (Grandparent's) Responses */
+.user-message {
+    background-color: var(--color-peach);
+    color: var(--color-charcoal);
+    margin-left: auto; /* Aligns to the right */
+    border-top-right-radius: 4px; /* Flatter edge near the align side */
+}
+
+/* --- Input Area Styling --- */
+.chat-input-area {
+    padding: 15px 0;
+}
+
+/* Style the text area to be clear and readable */
+#user-response-input {
+    border: 1px solid var(--color-sage);
+    resize: none; /* Prevents user resizing, keeps clean layout */
+}
+
+/* Focus state */
+#user-response-input:focus {
+    border-color: var(--color-peach);
+    box-shadow: 0 0 0 0.25rem rgba(240, 184, 156, 0.4); /* Soft peach glow */
+}
