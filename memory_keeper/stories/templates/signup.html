@@ -13,9 +13,10 @@
             <h2 class="mb-4">Create Your Account</h2>
             <p class="mb-4 text-muted">Join Memory Keeper and start capturing memories</p>
             
-            <form action="home.html" method="GET">
+            <form action="index.html" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
                 <div class="mb-3 text-start">
-                    <label for="fullname" class="form-label">Full Name</label>
                     <input type="text" class="form-control rounded-pill" id="fullname" placeholder="Enter your name" required>
                 </div>
                 <div class="mb-3 text-start">
