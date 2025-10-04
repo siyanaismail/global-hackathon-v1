@@ -1,0 +1,329 @@
+/* ---------------- Login Page ---------------- */
+.login-page {
+    background: linear-gradient(to right, #f9f7f7, #e3f2fd);
+}
+
+.login-card {
+    max-width: 400px;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    transition: 0.3s all ease-in-out;
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+}
+
+.login-card h2 {
+    font-weight: 700;
+    color: #333;
+}
+
+.login-card p {
+    font-size: 0.95rem;
+}
+
+.login-card .form-control {
+    border-radius: 50px;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+.login-card .form-control:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 5px rgba(255,111,97,0.4);
+}
+
+.login-card .btn-custom {
+    padding: 10px 25px;
+}
+
+/* ---------------- Sign Up Page ---------------- */
+.signup-page {
+    background: linear-gradient(to right, #f9f7f7, #e3f2fd);
+    padding: 2rem; /* adds space around the card */
+}
+
+.signup-card {
+    max-width: 450px; /* slightly wider for better spacing */
+    background: white;
+    padding: 3rem 2.5rem; /* increased top/bottom and left/right padding */
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    transition: 0.3s all ease-in-out;
+    margin: 1rem; /* space around the card on smaller screens */
+}
+
+.signup-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+}
+
+.signup-card h2 {
+    font-weight: 700;
+    color: #333;
+}
+
+.signup-card p {
+    font-size: 0.95rem;
+}
+
+.signup-card .form-control {
+    border-radius: 50px;
+    padding: 12px 20px; /* slightly taller input fields */
+    transition: 0.3s;
+}
+
+.signup-card .form-control:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 5px rgba(255,111,97,0.4);
+}
+
+.signup-card .btn-custom {
+    padding: 12px 25px; /* larger button for better spacing */
+}
+
+/* ---------------- Create Password Page ---------------- */
+.create-password-page {
+    background: linear-gradient(to right, #f9f7f7, #e3f2fd);
+    padding: 2rem;
+}
+
+.create-password-card {
+    max-width: 450px;
+    background: white;
+    padding: 3rem 2.5rem; /* consistent with Sign Up card */
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    transition: 0.3s all ease-in-out;
+    margin: 1rem; /* spacing around card on small screens */
+}
+
+.create-password-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+}
+
+.create-password-card h2 {
+    font-weight: 700;
+    color: #333;
+}
+
+.create-password-card p {
+    font-size: 0.95rem;
+}
+
+.create-password-card .form-control {
+    border-radius: 50px;
+    padding: 12px 20px;
+    transition: 0.3s;
+}
+
+.create-password-card .form-control:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 5px rgba(255,111,97,0.4);
+}
+
+.create-password-card .btn-custom {
+    padding: 12px 25px;
+}
+
+
+/* ---------------- Body & Fonts ---------------- */
+body {
+    background: linear-gradient(to right, #f9f7f7, #e3f2fd);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------------- Navbar ---------------- */
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.navbar .navbar-brand {
+    font-weight: 700;
+}
+
+.navbar .nav-link {
+    color: #333;
+    transition: 0.3s;
+}
+
+.navbar .nav-link:hover {
+    color: #ff6f61;
+}
+/* ---------------- Navbar Profile Icon ---------------- */
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border: 2px solid #ff6f61;
+    transition: 0.3s;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+}
+
+
+/* ---------------- Hero Section ---------------- */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: #333;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+/* ---------------- Buttons ---------------- */
+.btn-custom {
+    background-color: #ff6f61;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 25px;
+    transition: 0.3s all ease-in-out;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-custom:hover {
+    background-color: #e84a3e;
+    transform: translateY(-3px);
+}
+
+/* ---------------- Memory Cards (Future Use) ---------------- */
+.memory-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: 0.3s all ease-in-out;
+}
+
+.memory-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.memory-card h3 {
+    font-weight: 600;
+    color: #333;
+}
+
+.memory-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ---------------- Footer ---------------- */
+footer {
+    background: #f8f9fa;
+    text-align: center;
+    padding: 1rem 0;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+    color: #555;
+}
+
+/* ---------------- Smooth Scroll ---------------- */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ---------------- Responsive Adjustments ---------------- */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .btn-custom {
+        padding: 8px 20px;
+    }
+}
+
+/* ---------------- Memories Section ---------------- */
+.memories h2 {
+    font-size: 2.2rem;
+    color: #333;
+    font-weight: 700;
+}
+
+.memory-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: 0.3s all ease-in-out;
+}
+
+.memory-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.memory-card h3 {
+    font-weight: 600;
+    color: #333;
+}
+
+.memory-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .memory-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* ---------------- Footer ---------------- */
+footer {
+    background: #f8f9fa;
+    color: #555;
+    text-align: center;
+    padding: 1.5rem 0;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+}
+
+footer p {
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+}
+
+footer .social-icons {
+    margin-top: 0.5rem;
+}
+
+footer .social-link {
+    margin: 0 8px;
+    font-size: 1.2rem;
+    color: #ff6f61;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+footer .social-link:hover {
+    color: #e84a3e;
+    transform: translateY(-2px);
+}
