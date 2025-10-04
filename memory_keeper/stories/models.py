@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Memory(models.Model):
+    story_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.story_text[:50]
