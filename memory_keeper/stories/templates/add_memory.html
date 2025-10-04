@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Keeper</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section class="add-memory-section">
+    <div class="container">
+        <div class="memory-form-card mx-auto">
+            <h2 class="text-center mb-4">➕ Add a New Memory 🌸</h2>
+            <form method="POST" novalidate>
+                
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="id_title" class="form-label">Memory Title 💡</label>
+                    <input type="text" class="form-control" id="id_title" name="title" placeholder="Childhood Memory 🌸" required>
+                </div>
+
+                <!-- Story Text -->
+                <div class="mb-3">
+                    <label for="id_story_text" class="form-label">Your Story 📝</label>
+                    <textarea class="form-control" id="id_story_text" name="story_text" rows="6" placeholder="Write your memory here… ❤️" required></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom">Save Memory 💾</button>
+                    <a href="{% url 'view_stories' %}" class="btn btn-secondary ms-2">Cancel ❌</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
