@@ -14,7 +14,7 @@
             <h2 class="mb-4">Welcome Back</h2>
             <p class="mb-4 text-muted">Login to access your Memory Keeper</p>
             
-            <form action="home.html" method="post">
+            <form action="{% url 'home' %}" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="mb-3 text-start">
@@ -28,7 +28,7 @@
                 <button type="submit" class="btn btn-custom w-100 rounded-pill mt-3">Login</button>
             </form>
 
-            <p class="mt-4 text-muted">Don't have an account? <a href="#">Sign Up</a></p>
+            <p class="mt-4 text-muted">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
         </div>
     </div>
 
