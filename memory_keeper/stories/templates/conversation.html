@@ -1,45 +1,197 @@
+{% extends 'home.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Keeper - Create Password</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'stories/css/style.css' %}">
-</head>
-<body>
-<div class="row justify-content-center">
-    <div class="col-lg-8 col-md-10 col-12">
-        
-        <h2 class="mb-4 text-center" style="color: var(--color-sage);">
-            <i class="fas fa-robot"></i> Your Digital Interviewer
-        </h2>
 
-        <div class="chat-container">
-            <div class="chat-message bot-message">
-                <p>👋 Hello! I'm Memory Keeper. Ready to capture some stories?</p>
-                <p class="small text-muted">Please type the grandparent's name below to begin the session.</p>
+{% block title %}Memory Keeper - Digital Interviewer 🤖{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'stories/css/conversation.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12">
+            
+            <h2 class="mb-4 text-center" style="color: var(--color-sage);">
+                <i class="fas fa-robot"></i> Your Digital Interviewer
+            </h2>
+
+            <div class="chat-container">
+                <div class="chat-message bot-message">
+                    <p>👋 Hello! I'm Memory Keeper. Ready to capture some stories?</p>
+                    <p class="small text-muted">Please type the grandparent's name below to begin the session.</p>
+                </div>
+                
+                <div id="chat-history-area">
+                    </div>
+            </div>
+
+            <div class="chat-input-area mt-3">
+                <input type="text" id="grandparent-name-input" class="form-control mb-2" placeholder="Grandparent's Name (e.g., Grandma Rose)">
+                
+                <textarea id="user-response-input" class="form-control" rows="3" placeholder="Type the story here..." disabled></textarea>
+                
+                <button id="submit-response-btn" class="btn btn-sage w-100 mt-2" disabled>
+                    <i class="fas fa-paper-plane"></i> Send Response
+                </button>
+                
+                <small class="text-muted d-block mt-2 text-center" id="status-message">
+                    Enter a name to start the story.
+                </small>
             </div>
             
-            <div id="chat-history-area">
-                </div>
         </div>
-
-        <div class="chat-input-area mt-3">
-            <input type="text" id="grandparent-name-input" class="form-control mb-2" placeholder="Grandparent's Name (e.g., Grandma Rose)">
-            <textarea id="user-response-input" class="form-control" rows="3" placeholder="Type the story here..." disabled></textarea>
-            
-            <button id="submit-response-btn" class="btn btn-sage w-100 mt-2" disabled>
-                <i class="fas fa-paper-plane"></i> Send Response
-            </button>
-            
-            <small class="text-muted d-block mt-2 text-center" id="status-message">
-                Enter a name to start the story.
-            </small>
-        </div>
-        
     </div>
 </div>
-</body>
-</html>
+
+<script>
+    // DEFINE Django URL for API (Assuming Teammate A created a URL named 'ai_chat_api')
+    const chatApiUrl = "{% url 'ai_chat_api' %}";
+    const homeUrl = "{% url 'home' %}"; // The connected home page
+
+    const nameInput = document.getElementById('grandparent-name-input');
+    const responseInput = document.getElementById('user-response-input');
+    const submitBtn = document.getElementById('submit-response-btn');
+    const statusMessage = document.getElementById('status-message');
+    const chatHistoryArea = document.getElementById('chat-history-area');
+    const chatContainer = document.querySelector('.chat-container');
+
+    let currentGrandparentName = null;
+    let currentStoryContext = []; // Array to hold conversation history for LLM context
+
+    // --- Core Functions ---
+
+    function appendMessage(sender, text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message', sender === 'bot' ? 'bot-message' : 'user-message');
+        
+        const p = document.createElement('p');
+        p.innerHTML = text; // Use innerHTML for emoji rendering
+        messageDiv.appendChild(p);
+        
+        chatHistoryArea.appendChild(messageDiv);
+        
+        // Auto-scroll to the bottom
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function handleNameEntry() {
+        const name = nameInput.value.trim();
+        if (name) {
+            currentGrandparentName = name;
+            
+            // 1. Disable name input
+            nameInput.disabled = true;
+            nameInput.style.display = 'none';
+
+            // 2. Enable response input and submit button
+            responseInput.disabled = false;
+            submitBtn.disabled = false;
+            
+            // 3. Clear the initial status message
+            statusMessage.textContent = 'Session started. Waiting for your story input...';
+            
+            // 4. Send the user's name as the first user message
+            appendMessage('user', `Starting session for: ${name}`);
+
+            // 5. Send an initial API call to get the first prompt
+            sendApiRequest(
+                `Start interview session for Grandparent: ${name}. Your first question is: What is your earliest childhood memory?`
+            );
+        }
+    }
+    
+    // API Call (The key LLM function)
+    async function sendApiRequest(userText) {
+        statusMessage.textContent = 'Bot is thinking... 🧠';
+        submitBtn.disabled = true;
+        
+        // Add the user's latest message to the context
+        currentStoryContext.push({ role: "user", content: userText });
+
+        try {
+            // This endpoint will handle the LLM API call on the Django backend
+            const response = await fetch(chatApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Teammate A must provide the CSRF token in the HTML context or cookies
+                    'X-CSRFToken': getCookie('csrftoken') 
+                },
+                body: JSON.stringify({
+                    messages: currentStoryContext,
+                    grandparent_name: currentGrandparentName
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('API request failed. Check server logs.');
+            }
+
+            const data = await response.json();
+            const botResponse = data.response;
+            
+            // Add bot's response to chat history and context
+            appendMessage('bot', botResponse);
+            currentStoryContext.push({ role: "bot", content: botResponse });
+            
+            statusMessage.textContent = 'Ready for the next response.';
+            responseInput.value = ''; // Clear user input
+            responseInput.focus();
+            
+        } catch (error) {
+            console.error("Chat Error:", error);
+            appendMessage('bot', `🚨 Error: Could not connect to the interviewer. Please check the network.`);
+            statusMessage.textContent = 'Error occurred. Please try again.';
+        } finally {
+            submitBtn.disabled = false;
+        }
+    }
+
+    function handleSubmitResponse() {
+        const userResponse = responseInput.value.trim();
+        if (userResponse) {
+            appendMessage('user', userResponse);
+            sendApiRequest(userResponse);
+        }
+    }
+
+    // --- Event Listeners and Initialization ---
+
+    // 1. Initial Name Submit
+    nameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Prevent new line in input
+            handleNameEntry();
+        }
+    });
+    
+    // 2. Main Response Submit
+    submitBtn.addEventListener('click', handleSubmitResponse);
+    responseInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { // Allow Shift+Enter for new line
+            e.preventDefault();
+            handleSubmitResponse();
+        }
+    });
+
+    // Simple function to get CSRF token (required for Django POST)
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+</script>
+{% endblock content %}

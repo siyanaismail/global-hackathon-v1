@@ -24,11 +24,10 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse # Required for PDF export
-from .models import Grandparent, Memory
+from .models import Memory
 from .forms import MemoryForm, LoginForm, SignupForm # Assume these forms exist
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from xhtml2pdf import pisa # For future/wow-factor PDF export
 
 # --- Placeholder Authentication Views (MVP friendly) ---
 
@@ -156,12 +155,27 @@ def story_export_view(request, pk):
     # RENDER HTML TO PDF LOGIC
     html_content = render(request, template_name, context).content.decode('utf-8')
     response = HttpResponse(content_type='application/pdf')
-    # Force download with the story's title as the filename
-    response['Content-Disposition'] = f'attachment; filename="{memory.title}_Story.pdf"'
+
+    # Try to import xhtml2pdf when needed (optional dependency)
+    # Import xhtml2pdf at runtime to keep it optional and avoid static import errors
+    try:
+        import importlib
+        xhtml2pdf_mod = importlib.import_module('xhtml2pdf')
+        pisa = getattr(xhtml2pdf_mod, 'pisa', None)
+        xhtml2pdf_available = pisa is not None
+    except Exception:
+        xhtml2pdf_available = False
+
+    if not xhtml2pdf_available:
+        return HttpResponse('PDF generation is not available because xhtml2pdf is not installed.')
+
+    # Create a safe filename (Memory model may not have a `title` field)
+    memory_title = getattr(memory, 'title', f'memory_{memory.pk}')
+    response['Content-Disposition'] = f'attachment; filename="{memory_title}_Story.pdf"'
 
     # Create the PDF
     pisa_status = pisa.CreatePDF(
-       html_content, dest=response
+        html_content, dest=response
     )
     
     # If error during PDF creation, return a simple error response
