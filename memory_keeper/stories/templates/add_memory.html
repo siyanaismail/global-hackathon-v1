@@ -13,21 +13,12 @@
     <div class="container">
         <div class="memory-form-card mx-auto">
             <h2 class="text-center mb-4">➕ Add a New Memory 🌸</h2>
-            <form method="POST" novalidate> 
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="id_title" class="form-label">Memory Title 💡</label>
-                    <input type="text" class="form-control" id="id_title" name="title" placeholder="Childhood Memory 🌸" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="id_story_text" class="form-label">Your Story 📝</label>
-                    <textarea class="form-control" id="id_story_text" name="story_text" rows="6" placeholder="Write your memory here… ❤️" required></textarea>
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-custom">Save Memory 💾</button>
-                    <a href="{% url 'home' %}" class="btn btn-secondary ms-2">Cancel ❌</a>
+            <form method="POST">
+                 {% csrf_token %}
+                 {{ form.as_p }}
+                <div class="text-center mt-4">
+                   <button type="submit" class="btn btn-custom">Save Memory 💾</button>
+                   <a href="{% url 'home' %}" class="btn btn-secondary ms-2">Cancel ❌</a>
                 </div>
             </form>
         </div>

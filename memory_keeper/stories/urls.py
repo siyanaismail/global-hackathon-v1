@@ -1,30 +1,13 @@
 from django.urls import path
-from . import views
+from .views import home_view, add_memory_view, signup_view, login_view, logout_view, ai_chat_api, conversation_view
 
 urlpatterns = [
-    # Main landing / home
-    path('', views.home_view, name='home'),
-    # Auth / signup / login flows
-    path('signup/', views.signup_view, name='signup'),
-    path('login/', views.login_view, name='login'),
-    path('create-password/', views.create_password_view, name='create_password'),
-    # Memory CRUD and listing
-    path('add/', views.add_memory_view, name='add_memory'),
-    path('story/<int:pk>/', views.story_detail_view, name='story_detail'),
-    path('story/<int:pk>/export/', views.story_export_view, name='story_export'),
-    path('profile/', views.profile_view, name='profile'),
-    path('settings/', views.settings_view, name='settings'),
+    path('', home_view, name='home'),
+    path('add/', add_memory_view, name='add_memory'),
+    path('signup/', signup_view, name='signup'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('api/chat/', ai_chat_api, name='ai_chat_api'),
+    path('conversation/', conversation_view, name='conversation'),
+
 ]
-
-# from django.urls import path
-# from .views import SignUpView,index
-
-# urlpatterns = [
-#     path('', index, name='index'),
-#     path('signup/', SignUpView.as_view(), name='signup'),
-#     path('login/', views.login_view, name='login'),
-#     path('create-password/', views.create_password_view, name='create_password'),
-#     path('add/', views.add_memory_view, name='add_memory'),
-#     path('stories/', views.view_stories_view, name='view_stories'),
-#     path('story/<int:pk>/', views.story_detail_view, name='story_detail'),
-# ]

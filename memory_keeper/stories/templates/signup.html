@@ -14,17 +14,10 @@
             <h2 class="mb-4">Create Your Account</h2>
             <p class="mb-4 text-muted">Join Memory Keeper and start capturing memories</p>
             
-            <form action="{% url 'create_password' %}" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <div class="mb-3 text-start">
-                    <input type="text" class="form-control rounded-pill" id="fullname" placeholder="Enter your name" required>
-                </div>
-                <div class="mb-3 text-start">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control rounded-pill" id="email" placeholder="Enter your email" required>
-                </div>
-                <button type="submit" class="btn btn-custom w-100 rounded-pill mt-3">Create Password</button>
+            <form method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-custom w-100 rounded-pill mt-3">Login</button>
             </form>
 
             <p class="mt-4 text-muted">Already have an account? <a href="{% url 'login' %}">Login</a></p>

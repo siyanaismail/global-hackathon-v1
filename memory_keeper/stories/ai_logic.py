@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 
-client = OpenAI() #gets apikey from environment variable
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def get_ai_response(prompt_text): # Function to get response from OpenAI's GPT model
     try:
