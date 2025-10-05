@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'stories/css/style.css' %}">
 </head>
 <body>
+
 <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10 col-12">
         
@@ -41,5 +42,57 @@
         
     </div>
 </div>
+<script>
+    const responseInput = document.getElementById('user-response-input');
+    const submitBtn = document.getElementById('submit-response-btn');
+    const chatHistory = document.getElementById('chat-history-area');
+
+    // Enable input after a name is typed
+    document.getElementById('grandparent-name-input').addEventListener('keyup', function(e) {
+        if(e.target.value.trim() !== '') {
+            responseInput.disabled = false;
+            submitBtn.disabled = false;
+        }
+    });
+
+    submitBtn.addEventListener('click', handleSendMessage);
+
+    async function handleSendMessage() {
+        const userMessage = responseInput.value.trim();
+        if (userMessage === '') return;
+
+        addMessageToChat(userMessage, 'user-message');
+        responseInput.value = '';
+        submitBtn.disabled = true; // Disable button while AI is "thinking"
+
+        try {
+            const response = await fetch("{% url 'ai_chat_api' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}' // Django's security token
+                },
+                body: JSON.stringify({ message: userMessage })
+            });
+            const data = await response.json();
+            addMessageToChat(data.reply, 'bot-message');
+        } catch (error) {
+            addMessageToChat('Sorry, an error occurred. Please try again.', 'bot-message');
+            console.error('Error:', error);
+        } finally {
+            submitBtn.disabled = false; // Re-enable button
+        }
+    }
+
+    function addMessageToChat(message, cssClass) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${cssClass}`;
+        const p = document.createElement('p');
+        p.innerText = message;
+        messageDiv.appendChild(p);
+        chatHistory.appendChild(messageDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+</script>
 </body>
 </html>

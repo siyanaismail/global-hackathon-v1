@@ -19,7 +19,7 @@
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'add_memory' %}">Add Memory</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'view_stories' %}">View Stories</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">View Stories</a></li>
                 
                 <li class="nav-item dropdown ms-3 position-relative">
     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
@@ -28,10 +28,10 @@
         <span class="notification-badge">3</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
-        <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
+        <li><a class="dropdown-item" href="#">My Profile</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+        <li><a class="dropdown-item" href="#">Logout</a></li>
     </ul>
 </li>
 
@@ -52,29 +52,20 @@
     <div class="container">
         <h2 class="text-center mb-5">Life Memories</h2>
         <div class="row" id="memory-cards">
-            <div class="col-md-4">
-                <div class="memory-card">
-                    <h3>Grandparent Story</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. This story captures precious family momentss</p>
-                    <a href="{% url 'story_detail' 1 %}" class="btn btn-custom mt-3">Read More</a>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="memory-card">
-                    <h3>Childhood Memory</h3>
-                    <p>Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. Enjoy your childhood memories again.</p>
-                    <a href="{% url 'story_detail' 2 %}" class="btn btn-custom mt-3">Read More</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="memory-card">
-                    <h3>Life Lesson</h3>
-                    <p>In condimentum facilisis porta. Learn from life lessons and cherish family stories.</p>
-                    <a href="{% url 'story_detail' 3 %}" class="btn btn-custom mt-3">Read More</a>
-                </div>
+   				 {% for memory in memories %}
+        <div class="col-md-4 mb-4">
+            <div class="memory-card">
+                <h3>{{ memory.title }}</h3>
+                <p>{{ memory.story_text|truncatewords:20 }}</p>
+                <a href="#" class="btn btn-custom mt-3">Read More</a>
             </div>
         </div>
+    {% empty %}
+        <div class="col-12">
+            <p class="text-center">No memories have been added yet. Be the first!</p>
+        </div>
+    {% endfor %}
+</div>
     </div>
 </section>
 

@@ -3,7 +3,7 @@ from openai import OpenAI
 
 client = OpenAI() #gets apikey from environment variable
 
-def getAIresponse(prompt_text): # Function to get response from OpenAI's GPT model
+def get_ai_response(prompt_text): # Function to get response from OpenAI's GPT model
     try:
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
