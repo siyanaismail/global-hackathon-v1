@@ -5,4 +5,4 @@ class Memory(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.story_text[:50]
+        return self.story_text[:100] # Return first 100 characters of the story.
