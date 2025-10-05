@@ -1,3 +1,4 @@
+{% extends 'home.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,15 +18,15 @@
             <i class="fas fa-robot"></i> Your Digital Interviewer
         </h2>
 
-        <div class="chat-container">
-            <div class="chat-message bot-message">
-                <p>👋 Hello! I'm Memory Keeper. Ready to capture some stories?</p>
-                <p class="small text-muted">Please type the grandparent's name below to begin the session.</p>
-            </div>
-            
-            <div id="chat-history-area">
+            <div class="chat-container">
+                <div class="chat-message bot-message">
+                    <p>👋 Hello! I'm Memory Keeper. Ready to capture some stories?</p>
+                    <p class="small text-muted">Please type the grandparent's name below to begin the session.</p>
                 </div>
-        </div>
+                
+                <div id="chat-history-area">
+                    </div>
+            </div>
 
         <div class="chat-input-area mt-3">
             <input type="text" id="grandparent-name-input" class="form-control mb-2" placeholder="Grandparent's Name (e.g., Grandma Rose)">

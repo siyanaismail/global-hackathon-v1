@@ -1,0 +1,81 @@
+/* --- Custom Variables (Ensure these are defined once, preferably at the top of style.css or in a :root block) --- */
+:root {
+    /* Existing Pastel Palette from previous steps */
+    --color-linen: #FAF0E6;          /* Background */
+    --color-light-steel-blue: #B0C4DE; /* User Bubble / Card Border */
+    --color-sage: #6A5ACD;           /* Primary Accent / Button */
+    --color-peach: #FFDAB9;          /* Bot Bubble */
+    --color-charcoal: #36454F;       /* Text */
+}
+
+/* --- Chat Container --- */
+.chat-container {
+    height: 60vh; /* Fixed height for the chat area */
+    overflow-y: auto; /* Enable scrolling for chat history */
+    padding: 15px;
+    background-color: #f7f7f7; /* Light background for the chat window */
+    border-radius: 12px;
+    border: 1px solid var(--color-light-steel-blue);
+    margin-bottom: 20px;
+}
+
+/* --- Message Base Style --- */
+.chat-message {
+    max-width: 85%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    word-wrap: break-word; /* Ensures text wraps nicely on small screens */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle lift */
+}
+
+/* --- Bot Message (Left-aligned) --- */
+.bot-message {
+    background-color: var(--color-peach); 
+    color: var(--color-charcoal);
+    margin-right: auto;
+    /* Sharp corner on the bottom left to visually anchor it to the side */
+    border-bottom-left-radius: 5px; 
+}
+
+/* --- User Message (Right-aligned) --- */
+.user-message {
+    background-color: var(--color-light-steel-blue);
+    color: white; /* White text for contrast on the blue background */
+    margin-left: auto;
+    /* Sharp corner on the bottom right to visually anchor it to the side */
+    border-bottom-right-radius: 5px;
+}
+
+/* --- Input Area --- */
+.chat-input-area {
+    padding: 10px;
+    background-color: var(--color-linen); /* Matches body background */
+    border-radius: 12px;
+    border: 1px solid var(--color-light-steel-blue);
+}
+
+/* --- Button Styling (Sage Accent) --- */
+.btn-sage {
+    background-color: var(--color-sage);
+    border-color: var(--color-sage);
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.btn-sage:hover:not(:disabled) {
+    background-color: var(--color-charcoal);
+    border-color: var(--color-charcoal);
+}
+
+/* Style for disabled button state */
+.btn-sage:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- Input Field Overrides (Ensure responsiveness and rounded pills look) --- */
+.chat-input-area .form-control {
+    border-radius: 8px; /* Slightly rounded edges for inputs */
+    border: 1px solid var(--color-light-steel-blue);
+}
