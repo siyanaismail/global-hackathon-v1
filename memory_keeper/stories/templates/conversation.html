@@ -71,7 +71,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}' // Django's security token
+                    'X-CSRFToken': '{{ csrf_token }}' 
                 },
                 body: JSON.stringify({ message: userMessage })
             });

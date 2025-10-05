@@ -5,8 +5,6 @@ from django.http import JsonResponse
 import json
 from .ai_logic import get_ai_response 
 
-<<<<<<< HEAD
-=======
 # from django.shortcuts import render 
 # from .models import Memory # Import Memory model
 
@@ -97,7 +95,6 @@ def logout_view(request):
 # --- Core Memory Keeper Views ---
 
 @login_required # Ensures only logged-in users can see the homepage
->>>>>>> 62fa1b9a2b6ec3a2a00878fd999bbe9282afa545
 def home_view(request):
     """ This will be your main page, showing all memories. """
     memories = Memory.objects.all().order_by('-created_at')
@@ -127,35 +124,6 @@ def ai_chat_api(request):
 
         return JsonResponse({'reply': ai_reply})
 
-<<<<<<< HEAD
-def conversation_view(request):
-    return render(request, 'conversation.html')
-
-
-
-
-
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.http import HttpResponse # Required for PDF export
-# from .models import Grandparent, Memory
-# from .forms import MemoryForm, LoginForm, SignupForm # Assume these forms exist
-# from django.contrib.auth import authenticate, login, logout
-# from django.contrib.auth.decorators import login_required
-# from xhtml2pdf import pisa # For future/wow-factor PDF export
-
-# # --- Placeholder Authentication Views (MVP friendly) ---
-
-# def signup_view(request):
-#     """Handles user sign-up."""
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             # Redirect to the create_password step (or home, depending on your flow)
-#             return redirect('create_password') 
-#     else:
-#         form = SignupForm()
-=======
 @login_required
 def story_export_view(request, pk):
     """Exports a single memory as a PDF file using xhtml2pdf."""
@@ -191,7 +159,6 @@ def story_export_view(request, pk):
     pisa_status = pisa.CreatePDF(
         html_content, dest=response
     )
->>>>>>> 62fa1b9a2b6ec3a2a00878fd999bbe9282afa545
     
 #     # Renders the signup.html template
 #     return render(request, 'signup.html', {'form': form})
